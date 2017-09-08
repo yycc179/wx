@@ -33,9 +33,9 @@ app.use('/', wechat(config, function (req, res, next) {
 
 var wechat = require('wechat');
 var config = {
-  token: 'token',
-  appid: 'appid',
-  encodingAESKey: 'encodinAESKey',
+  token: 'my_s_token',
+  appid: 'wx752686772c3e8225',
+  encodingAESKey: 'QWNZZyonKctSqjQSUgFbAYucu8zLxNPCgyzGeCxmlYd',
   checkSignature: false // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 
