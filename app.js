@@ -29,6 +29,14 @@ var wechat = require('wechat');
 app.use('/', wechat(config, function (req, res, next) {
   var message = req.weixin;
   console.log(message)
+  res.reply([
+    {
+      title: '你来我家接我吧',
+      description: '这是女神与高富帅之间的对话',
+      picurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504882319721&di=6ba74bf2dad3cea7da0f5725ca7c6ffa&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D99f47a0d7ef0f736d8ab44053f659f2f%2Fb03533fa828ba61e9a43845d4734970a304e5916.jpg',
+      url: 'http://nodeapi.cloudfoundry.com/'
+    }
+  ]);
 }));
 
 var wechat = require('wechat');
