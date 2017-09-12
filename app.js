@@ -35,7 +35,7 @@ var config = {
     checkSignature: false // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 
-var api = new WechatAPI('wx752686772c3e8225', null);
+var api = new WechatAPI('wx752686772c3e8225', '');
 
 var menu = {
     "button": [
@@ -78,6 +78,13 @@ app.use('/', wechat(config, function(req, res, next) {
 
     superagent.post('http://www.tuling123.com/openapi/api')
         .send({ info: message.Content, userid: message.FromUserName, key: '069e90c4262243bf964ad95014371384' })
+        .end((e, r) => {
+          if(e) {
+            console.log(e)
+            return res.reply('inner error...');
+          }
+          res.reply(r.text)
+        })
         .pipe(res)
 
 }));
