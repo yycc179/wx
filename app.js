@@ -35,7 +35,7 @@ var config = {
     checkSignature: false // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 
-var api = new WechatAPI('wx752686772c3e8225', '');
+var api = new WechatAPI('wx752686772c3e8225', '1e050558f68abfb72675a0d01eca5e2a');
 
 var menu = {
     "button": [
@@ -83,7 +83,6 @@ app.use('/', wechat(config, function(req, res, next) {
             console.log(e)
             return res.reply('inner error...');
           }
-          console.log(typeof r.text)
           res.reply(JSON.parse(r.text).text)
         })
 }));
