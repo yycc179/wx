@@ -85,8 +85,6 @@ app.use('/', wechat(config, function(req, res, next) {
           }
           res.reply(r.text)
         })
-        .pipe(res)
-
 }));
 
 
