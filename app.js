@@ -83,8 +83,8 @@ app.use('/', wechat(config, function(req, res, next) {
             console.log(e)
             return res.reply('inner error...');
           }
-          console.log(r.text)
-          res.reply(r.text.text)
+          console.log(typeof r.text)
+          res.reply(JSON.parse(r.text).text)
         })
 }));
 
