@@ -39,37 +39,40 @@ router.get('/all', function (req, res, next) {
 });
 
 router.get('/menu', function (req, res, next) {
-  api.createMenu({
-    "button": [
-      {
-        "type": "click",
-        "name": "今日歌曲",
-        "key": "V1001_TODAY_MUSIC"
-      },
-      {
-        "name": "菜单",
-        "sub_button": [
-          {
-            "type": "view",
-            "name": "搜索",
-            "url": "http://www.soso.com/"
-          },
-          {
-            "type": "click",
-            "name": "赞一下我们",
-            "key": "V1001_GOOD"
-          }]
-      },
-      {
-        "type": "view",
-        "name": "主页",
-        "url": "http://wx-llyy.rhcloud.com/"
-      },
-    ]
-  }, (err, r) => {
-    r.err = err
-    res.json(r)
-  });
+  api.removeMenu(() => {
+    api.createMenu({
+      "button": [
+        {
+          "type": "click",
+          "name": "今日歌曲",
+          "key": "V1001_TODAY_MUSIC"
+        },
+        {
+          "name": "菜单",
+          "sub_button": [
+            {
+              "type": "view",
+              "name": "搜索",
+              "url": "http://www.soso.com/"
+            },
+            {
+              "type": "click",
+              "name": "赞一下我们",
+              "key": "V1001_GOOD"
+            }]
+        },
+        {
+          "type": "view",
+          "name": "主页",
+          "url": "http://wx-llyy.rhcloud.com/"
+        },
+      ]
+    }, (err, r) => {
+      r.err = err
+      res.json(r)
+    });
+  })
+
 });
 
 module.exports = router;
