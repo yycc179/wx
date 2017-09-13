@@ -19,7 +19,14 @@ router.get('/wechat', function(req, res, next) {
 
 
 router.get('/all', function(req, res, next) {
-  api.massSend('o3NPW0r_fi2BL8-zYrJuryidCuCY', 'Hello ' + ++ i, (err, r) => {
+  var op = {
+    "text":{
+      content: 'Hello ' + ++ i
+    },
+    "msgtype":"text"
+   };
+
+  api.massSend(op, 'oByqawkBy0a0j4COOy04IcyXRP2Y' , (err, r) => {
     r.err = err
     res.json(r)
   });
