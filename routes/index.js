@@ -59,7 +59,13 @@ router.get('/menu', function (req, res, next) {
             "name": "赞一下我们",
             "key": "V1001_GOOD"
           }]
-      }]
+      },
+      {
+        "type": "view",
+        "name": "主页",
+        "url": "http://wx-llyy.rhcloud.com/"
+      },
+    ]
   }, (err, r) => {
     r.err = err
     res.json(r)
