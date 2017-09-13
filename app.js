@@ -35,7 +35,6 @@ var config = {
     checkSignature: false // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 
-//var api = new WechatAPI('wx752686772c3e8225', '1e050558f68abfb72675a0d01eca5e2a');
 
 app.use('/wx', wechat(config, wechat.text(function(message, req, res, next) {
     // message为文本内容
