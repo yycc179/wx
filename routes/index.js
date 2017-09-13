@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const wechat = require('wechat');
+const WechatAPI = require('wechat-api')
 
 var api = new WechatAPI('wx752686772c3e8225', '1e050558f68abfb72675a0d01eca5e2a');
 
