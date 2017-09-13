@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.query());
@@ -35,60 +35,128 @@ var config = {
     checkSignature: false // 可选，默认为true。由于微信公众平台接口调试工具在明文模式下不发送签名，所以如要使用该测试工具，请将其设置为false
 };
 
-var api = new WechatAPI('wx752686772c3e8225', '1e050558f68abfb72675a0d01eca5e2a');
+//var api = new WechatAPI('wx752686772c3e8225', '1e050558f68abfb72675a0d01eca5e2a');
 
-var menu = {
-    "button": [
-        {
-            "type": "click",
-            "name": "今日歌曲",
-            "key": "V1001_TODAY_MUSIC"
-        },
-        {
-            "name": "菜单",
-            "sub_button": [
-                {
-                    "type": "view",
-                    "name": "搜索",
-                    "url": "https://www.baidu.com/"
-                },
-                {
-                    "type": "click",
-                    "name": "赞一下我们",
-                    "key": "V1001_GOOD"
-                }]
-        }]
-};
-
-api.createMenu(menu, (e, r) => {
-  console.log(e, r)
-})
-
-app.use('/', wechat(config, function(req, res, next) {
-    var message = req.weixin;
-    console.log(message)
-    // res.reply([
-    //   {
-    //     title: '你来我家接我吧',
-    //     description: '这是女神与高富帅之间的对话',
-    //     picurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504882319721&di=6ba74bf2dad3cea7da0f5725ca7c6ffa&imgtype=0&src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3D99f47a0d7ef0f736d8ab44053f659f2f%2Fb03533fa828ba61e9a43845d4734970a304e5916.jpg',
-    //     url: 'http://nodeapi.cloudfoundry.com/'
-    //   }
-    // ]);
-
+app.use('/wx', wechat(config, wechat.text(function(message, req, res, next) {
+    // message为文本内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125035',
+    // MsgType: 'text',
+    // Content: 'http',
+    // MsgId: '5837397576500011341' }
     superagent.post('http://www.tuling123.com/openapi/api')
         .send({ info: message.Content, userid: message.FromUserName, key: '069e90c4262243bf964ad95014371384' })
         .end((e, r) => {
-          if(e) {
-            console.log(e)
-            return res.reply('inner error...');
-          }
-          res.reply(JSON.parse(r.text).text)
+            if (e) {
+                console.log(e)
+                return res.reply('inner error...');
+            }
+            res.reply(JSON.parse(r.text).text)
         })
-}));
+
+}).image(function(message, req, res, next) {
+    // message为图片内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359124971',
+    // MsgType: 'image',
+    // PicUrl: 'http://mmsns.qpic.cn/mmsns/bfc815ygvIWcaaZlEXJV7NzhmA3Y2fc4eBOxLjpPI60Q1Q6ibYicwg/0',
+    // MediaId: 'media_id',
+    // MsgId: '5837397301622104395' }
+}).voice(function(message, req, res, next) {
+    // message为音频内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'voice',
+    // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+    // Format: 'amr',
+    // MsgId: '5837397520665436492' }
+}).video(function(message, req, res, next) {
+    // message为视频内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'video',
+    // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+    // ThumbMediaId: 'media_id',
+    // MsgId: '5837397520665436492' }
+}).shortvideo(function(message, req, res, next) {
+    // message为短视频内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'shortvideo',
+    // MediaId: 'OMYnpghh8fRfzHL8obuboDN9rmLig4s0xdpoNT6a5BoFZWufbE6srbCKc_bxduzS',
+    // ThumbMediaId: 'media_id',
+    // MsgId: '5837397520665436492' }
+}).location(function(message, req, res, next) {
+    // message为位置内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125311',
+    // MsgType: 'location',
+    // Location_X: '30.283950',
+    // Location_Y: '120.063139',
+    // Scale: '15',
+    // Label: {},
+    // MsgId: '5837398761910985062' }
+}).link(function(message, req, res, next) {
+    // message为链接内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'link',
+    // Title: '公众平台官网链接',
+    // Description: '公众平台官网链接',
+    // Url: 'http://1024.com/',
+    // MsgId: '5837397520665436492' }
+}).event(function(message, req, res, next) {
+    // message为事件内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'event',
+    // Event: 'LOCATION',
+    // Latitude: '23.137466',
+    // Longitude: '113.352425',
+    // Precision: '119.385040',
+    // MsgId: '5837397520665436492' }
+    if(message.Event == 'subscribe') {
+      res.reply('欢迎您的到来，有什么问题可以问我哟')
+    }
+
+}).device_text(function(message, req, res, next) {
+    // message为设备文本消息内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'device_text',
+    // DeviceType: 'gh_d3e07d51b513'
+    // DeviceID: 'dev1234abcd',
+    // Content: 'd2hvc3lvdXJkYWRkeQ==',
+    // SessionID: '9394',
+    // MsgId: '5837397520665436492',
+    // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
+}).device_event(function(message, req, res, next) {
+    // message为设备事件内容
+    // { ToUserName: 'gh_d3e07d51b513',
+    // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
+    // CreateTime: '1359125022',
+    // MsgType: 'device_event',
+    // Event: 'bind'
+    // DeviceType: 'gh_d3e07d51b513'
+    // DeviceID: 'dev1234abcd',
+    // OpType : 0, //Event为subscribe_status/unsubscribe_status时存在
+    // Content: 'd2hvc3lvdXJkYWRkeQ==', //Event不为subscribe_status/unsubscribe_status时存在
+    // SessionID: '9394',
+    // MsgId: '5837397520665436492',
+    // OpenID: 'oPKu7jgOibOA-De4u8J2RuNKpZRw' }
+})));
 
 
-app.use('/xx', index);
+app.use('/', index);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
