@@ -60,7 +60,7 @@ app.use('/wx', wechat(config, wechat.text(function (message, req, res, next) {
     // MsgType: 'text',
     // Content: 'http',
     // MsgId: '5837397576500011341' }
-    if (info.Content === 'list') {
+    if (message.Content === 'list') {
         res.wait('view');
     }
     else if (message.Content == '11') {
