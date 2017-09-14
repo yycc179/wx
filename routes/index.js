@@ -6,6 +6,7 @@ const sign = require('./sign')
 
 var api = new WechatAPI('wx3b83bf8f1b698b05', 'a09d4a8e2553dfc2276903ce96108df2');
 
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   api.getTicket((err, r) => {
@@ -14,7 +15,6 @@ router.get('/', function (req, res, next) {
     var r = sign(r.ticket, 'http://wx-llyy.rhcloud.com/');
     r.title = 'Index'
     res.render('index', r)
-
   })
 
 });
