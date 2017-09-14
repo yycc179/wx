@@ -131,6 +131,7 @@ router.use('/wx', wechat(config, wechat.text(function (message, req, res, next) 
   // Description: '公众平台官网链接',
   // Url: 'http://1024.com/',
   // MsgId: '5837397520665436492' }
+  res.send('success')
 }).event(function (message, req, res, next) {
   // message为事件内容
   // { ToUserName: 'gh_d3e07d51b513',
@@ -143,7 +144,7 @@ router.use('/wx', wechat(config, wechat.text(function (message, req, res, next) 
   // Precision: '119.385040',
   // MsgId: '5837397520665436492' }
   if (message.Event == 'subscribe') {
-      res.reply('欢迎您的到来，有什么问题可以问我哟')
+      res.reply('来撩我吧！！！！！！！')
   }
 
 }).device_text(function (message, req, res, next) {
