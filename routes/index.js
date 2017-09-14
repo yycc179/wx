@@ -6,7 +6,15 @@ var api = new WechatAPI('wx3b83bf8f1b698b05', 'a09d4a8e2553dfc2276903ce96108df2'
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.send('ok')
+  console.log(req.query)
+  res.render('index', {
+    title: 'index',
+    appId: 'wx3b83bf8f1b698b05',
+    timestamp: req.query.wx3b83bf8f1b698b05,
+    nonceStr: req.query.nonce,
+    signature: req.query.signature,
+    jsApiList: []
+  })
 });
 
 var i = 0
