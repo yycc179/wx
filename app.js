@@ -44,6 +44,17 @@ app.use('/wx', wechat(config, wechat.text(function(message, req, res, next) {
     // MsgType: 'text',
     // Content: 'http',
     // MsgId: '5837397576500011341' }
+    if(message.Content == '11') {
+        return res.reply([
+            {
+              title: '你来我家接我吧',
+              description: '这是女神与高富帅之间的对话',
+              picurl: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=905870645,2528784422&fm=27&gp=0.jpg',
+              url: 'http://wx-llyy.rhcloud.com/'
+            }
+          ]);
+    }
+
     superagent.post('http://www.tuling123.com/openapi/api')
         .send({ info: message.Content, userid: message.FromUserName, key: '069e90c4262243bf964ad95014371384' })
         .end((e, r) => {
