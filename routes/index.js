@@ -11,10 +11,10 @@ var api = new WechatAPI('wx3b83bf8f1b698b05', 'a09d4a8e2553dfc2276903ce96108df2'
 router.get('/', function (req, res, next) {
   api.getTicket((err, r) => {
     if(err) {return next(err)}
-    console.log(r.ticket)
     var r = sign(r.ticket, 'http://wx-llyy.rhcloud.com/');
+    console.log(r)
     r.title = 'Index'
-    res.render('index', r)
+    res.render('1', r)
   })
 
 });
