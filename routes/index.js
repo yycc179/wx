@@ -209,9 +209,9 @@ router.get('/menu', function (req, res, next) {
     api.createMenu({
       "button": [
         {
-          "type": "click",
-          "name": "今日歌曲",
-          "key": "V1001_TODAY_MUSIC"
+          "type": "view",
+          "name": "今日头条",
+          "url": "http://www.toutiao.com/"
         },
         {
           "name": "菜单",
