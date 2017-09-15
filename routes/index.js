@@ -217,14 +217,14 @@ router.get('/menu', function (req, res, next) {
           "name": "菜单",
           "sub_button": [
             {
-              "type": "view",
-              "name": "搜索",
-              "url": "http://www.soso.com/"
+              "type": "click",
+              "name": "一级菜单",
+              "key": "KEY_1"
             },
             {
               "type": "click",
-              "name": "赞一下我们",
-              "key": "V1001_GOOD"
+              "name": "二级菜单",
+              "key": "KEY_2"
             }]
         },
         {
